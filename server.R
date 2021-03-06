@@ -19,9 +19,7 @@ is.odd <- function(X) x %% 2 != 0
 shinyServer(function(input, output) {
     
     
-        
-        
-        
+
 mps_pref <- reactive({
     
         mps <- strsplit(input$names, ", ")[[1]]
