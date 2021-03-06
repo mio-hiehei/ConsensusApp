@@ -33,7 +33,7 @@ fluidPage(
     titlePanel("MPs in Zoomland"),
 
      sidebarPanel(
-         textInput('names', 'Enter your names (comma delimited)', "Angela, Emmanuel, Boris, Pedro, Giuseppe"),
+         textInput('names', 'Enter your names (comma delimited)', "Rena, Ria, Mio, WIlli, Tatti, Johann, Lovis, Friedrich, Walter, Christa, Hartmut, Paula, Jakob, Rainer, Annette, Julius, Ina"),
          tableOutput("table")
          
      ),

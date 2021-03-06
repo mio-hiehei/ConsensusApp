@@ -26,10 +26,9 @@ mps_pref <- reactive({
     
         mps <- strsplit(input$names, ", ")[[1]]
         
-        # Rena, Ria, Mio, WIlli, Tatti, Johann, Lovis, Friedrich, Walter, Christa, Hartmut, Paula, Jakob, Rainer, Annette, Julius, Ina
-        
+
         p4 <- cbind(round(rtruncnorm(n = ceiling(0.35*length(mps)),
-                                    mean = 40,
+                                    mean = 38,
                                     sd = 8,
                                     a = 0,
                                     b= 100),
@@ -48,7 +47,7 @@ mps_pref <- reactive({
         
         uwe <- cbind(round(rtruncnorm(n = round((length(mps) - length(p4[,1])- length(waa[,1])) * 0.66,0),
                                       mean = 58, 
-                                      sd = 10,
+                                      sd = 8,
                                       a = 0,
                                       b = 100),
                            0),
@@ -77,19 +76,22 @@ mps_pref <- reactive({
             
             ggplot(data = mps_pref(), aes(x = Preference,y = 1, colour = Party))+
                 geom_point(size = 2.5)+
+                geom_vline(xintercept = 45, linetype = "dashed")+
+                geom_hline(yintercept = 1)+
                 ggtitle("Preference Distribution in Lower Chamber")+
                 geom_text_repel(aes(label = Name),nudge_y = 0.0,colour = "black", size = 3)+
-                theme_bw()+
+                theme_void()+
                 theme(axis.title.y=element_blank(),
-                      axis.text.y=element_blank())
+                      axis.text.y=element_blank())+
+                scale_colour_manual(values=c("orange", "yellow", "red", "blue"))
             })
     
         
-    data <- data.frame(Party = c("P4","WAA","UWE","PLS"),
-                       Seats = c(40, 7, 30, 100-40-7-30),
+    data <- data.frame(Party = c("P4", "WAA", "PLS", "UWE"),
+                       Seats = c(40, 7, 100-40-7-30, 30),
                        Parl = "Upper Chamber")
 
-    data$Party <- factor(data$Party, levels = c("PLS","UWE","WAA", "P4"))
+    data$Party <- factor(data$Party, levels = c("P4","WAA","PLS","UWE"))
 
 
     output$plot2 <- renderPlot({
@@ -101,6 +103,7 @@ mps_pref <- reactive({
                       position = position_stack(vjust = 0.5))+
             theme_minimal() +
             ylab("Seats") +
+            scale_fill_manual(values=c("orange", "blue", "yellow","red"))+
             xlab(NULL)+
             ggtitle("Seat Composition in upper chamber")
 
